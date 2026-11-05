@@ -11,6 +11,7 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final movies = ref.watch(popularMoviesProvider);
     final trendingMovies = ref.watch(trendingMoviesProvider);
+    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -71,9 +72,9 @@ class HomeScreen extends ConsumerWidget {
                     },
                   ),
                 ),
-                const SizedBox(height: 25),
+                SizedBox(height: 25),
 
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     'Trending Now',
@@ -106,6 +107,47 @@ class HomeScreen extends ConsumerWidget {
                             SizedBox(width: 12),
                         itemBuilder: (context, index) {
                           return MovieCard(movie: trendingList[index]);
+                        },
+                      ),
+                    );
+                  },
+                ),
+
+                SizedBox(height: 25),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    "Now Playing",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+
+                SizedBox(height: 16),
+
+                nowPlayingMovies.when(
+                  loading: () {
+                    return Center(child: CircularProgressIndicator());
+                  },
+
+                  error: (error, stackTrace) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text("Failed to load movies: $error"),
+                    );
+                  },
+
+                  data: (nowPlayingList) {
+                    return SizedBox(
+                      height: 230,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        itemCount: nowPlayingList.length,
+                        separatorBuilder: (context, index) =>
+                            SizedBox(width: 12),
+                        itemBuilder: (context, index) {
+                          return MovieCard(movie: nowPlayingList[index]);
                         },
                       ),
                     );
