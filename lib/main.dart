@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:netflix_clone/core/theme/app_theme.dart';
+import 'package:netflix_clone/features/home/presentation/screens/home_screen.dart';
 
 void main() {
-  runApp(NETFLIX());
+  runApp(ProviderScope(child: NETFLIX()));
 }
 
 class NETFLIX extends StatelessWidget {
@@ -9,6 +12,10 @@ class NETFLIX extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false);
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.darkTheme,
+      home: HomeScreen(),
+    );
   }
 }

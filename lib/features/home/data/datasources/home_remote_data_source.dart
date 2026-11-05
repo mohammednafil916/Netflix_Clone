@@ -13,7 +13,6 @@ class HomeRemoteDataSource {
         return movies.map((movie) {
           return MovieModel.fromJson(movie);
         }).toList();
-        
       } else {
         throw Exception('Failed to load popural movies');
       }
