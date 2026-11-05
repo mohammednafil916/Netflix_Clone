@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netflix_clone/features/home/presentation/providers/home_provider.dart';
 import 'package:netflix_clone/features/home/presentation/widgets/movie_card.dart';
+import 'package:netflix_clone/features/home/presentation/widgets/featured_movie_banner.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -33,42 +34,43 @@ class HomeScreen extends ConsumerWidget {
           }
 
           return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      "Popular on Netflix",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Featured Movie Banner
+                FeaturedMovieBanner(movie: movieList.first),
+
+                SizedBox(height: 20),
+
+                // Popular Movies Heading
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    "Popular on Netflix",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
+                ),
 
-                  SizedBox(height: 16),
+                SizedBox(height: 16),
 
-                  SizedBox(
-                    height: 230,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: movieList.length,
-                      separatorBuilder: (context, index) {
-                        return SizedBox(width: 12);
-                      },
-                      itemBuilder: (context, index) {
-                        final movie = movieList[index];
+                // Horizontal Movie List
+                SizedBox(
+                  height: 230,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: movieList.length,
+                    separatorBuilder: (context, index) {
+                      return SizedBox(width: 12);
+                    },
+                    itemBuilder: (context, index) {
+                      final movie = movieList[index];
 
-                        return MovieCard(movie: movie);
-                      },
-                    ),
+                      return MovieCard(movie: movie);
+                    },
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

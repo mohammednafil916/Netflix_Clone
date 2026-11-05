@@ -6,6 +6,7 @@ class MovieModel extends Movie {
     required super.title,
     required super.overview,
     super.posterPath,
+    super.backdropPath,
     required super.rating,
     required super.releaseDate,
   });
@@ -16,6 +17,7 @@ class MovieModel extends Movie {
       title: json['title'] ?? "",
       overview: json['overview'] ?? "",
       posterPath: json['poster_path'],
+      backdropPath: json['backdrop_path'],
       rating: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
       releaseDate: json['release_date'] ?? "",
     );
