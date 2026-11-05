@@ -20,4 +20,22 @@ class HomeRemoteDataSource {
       throw Exception('API Error: ${e.message}');
     }
   }
+
+  Future<List<MovieModel>> fetchTrendingMovies() async {
+    try {
+      final response = await DioClient.dio.get('/trending/movie/day');
+
+      if (response.statusCode == 200) {
+        final List movies = response.data['results'];
+
+        return movies.map((movie) {
+          return MovieModel.fromJson(movie);
+        }).toList();
+      } else {
+        throw Exception('Failed to load trending movies');
+      }
+    } on DioException catch (e) {
+      throw Exception('API Error: ${e.message}');
+    }
+  }
 }

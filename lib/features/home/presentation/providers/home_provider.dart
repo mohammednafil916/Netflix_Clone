@@ -27,3 +27,9 @@ final popularMoviesProvider =
     AsyncNotifierProvider<PopularMoviesNotifier, List<Movie>>(
       PopularMoviesNotifier.new,
     );
+
+final trendingMoviesProvider = FutureProvider<List<Movie>>((ref) async {
+  final repository = ref.watch(homeRepositoryProvider);
+
+  return repository.fetchTrendingMovies();
+});
