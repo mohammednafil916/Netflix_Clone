@@ -33,3 +33,9 @@ final trendingMoviesProvider = FutureProvider<List<Movie>>((ref) async {
 
   return repository.fetchTrendingMovies();
 });
+
+final nowPlayingMoviesProvider = FutureProvider<List<Movie>>((ref) async {
+  final repository = ref.watch(homeRepositoryProvider);
+
+  return repository.fetchNowPlayingMovies();
+});
