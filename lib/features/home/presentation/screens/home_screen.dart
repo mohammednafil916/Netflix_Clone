@@ -10,6 +10,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final movies = ref.watch(popularMoviesProvider);
+    final trendingMovies = ref.watch(trendingMoviesProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -69,6 +70,46 @@ class HomeScreen extends ConsumerWidget {
                       return MovieCard(movie: movie);
                     },
                   ),
+                ),
+                const SizedBox(height: 25),
+
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    'Trending Now',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+
+                SizedBox(height: 16),
+
+                trendingMovies.when(
+                  loading: () {
+                    return Center(child: CircularProgressIndicator());
+                  },
+
+                  error: (error, stackTrace) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text("Failed to load trending movies: $error"),
+                    );
+                  },
+
+                  data: (trendingList) {
+                    return SizedBox(
+                      height: 230,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        itemCount: trendingList.length,
+                        separatorBuilder: (context, index) =>
+                            SizedBox(width: 12),
+                        itemBuilder: (context, index) {
+                          return MovieCard(movie: trendingList[index]);
+                        },
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
