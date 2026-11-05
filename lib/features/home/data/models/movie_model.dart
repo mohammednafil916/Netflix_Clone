@@ -1,18 +1,13 @@
-class MovieModel {
-  final int id;
-  final String title;
-  final String overview;
-  final String? posterPath;
-  final double rating;
-  final String releaseDate;
+import 'package:netflix_clone/features/home/domain/entities/movie.dart';
 
+class MovieModel extends Movie {
   MovieModel({
-    required this.id,
-    required this.title,
-    required this.overview,
-    this.posterPath,
-    required this.rating,
-    required this.releaseDate,
+    required super.id,
+    required super.title,
+    required super.overview,
+    super.posterPath,
+    required super.rating,
+    required super.releaseDate,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
