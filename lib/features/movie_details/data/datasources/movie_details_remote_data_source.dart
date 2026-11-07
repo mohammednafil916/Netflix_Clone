@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:netflix_clone/core/network/dio_client.dart';
 
 class MovieDetailsRemoteDataSource {
   final Dio dio;
