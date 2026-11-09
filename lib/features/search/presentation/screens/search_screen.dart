@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netflix_clone/features/search/presentation/providers/search_provider.dart';
 import 'package:go_router/go_router.dart';
 
+import 'dart:async';
+
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
 
@@ -13,10 +15,13 @@ class SearchScreen extends ConsumerStatefulWidget {
 class _SearchScreenState extends ConsumerState<SearchScreen> {
   final TextEditingController searchController = TextEditingController();
 
+  Timer? debounce;
+
   String searchQuery = '';
 
   @override
   void dispose() {
+    debounce?.cancel();
     searchController.dispose();
     super.dispose();
   }
@@ -52,8 +57,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 ),
               ),
               onChanged: (value) {
-                setState(() {
-                  searchQuery = value;
+                debounce?.cancel();
+
+                debounce = Timer(Duration(milliseconds: 500), () {
+                  setState(() {
+                    searchQuery = value.trim();
+                  });
                 });
               },
             ),
