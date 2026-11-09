@@ -1,9 +1,10 @@
-import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:netflix_clone/core/widgets/bottom_nav_bar.dart';
 import 'package:netflix_clone/features/home/presentation/screens/home_screen.dart';
 import 'package:netflix_clone/features/movie_details/presentation/screens/movie_details_screen.dart';
 import 'package:netflix_clone/features/search/presentation/screens/search_screen.dart';
+import 'package:netflix_clone/features/downloads/presentation/screens/downloads_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -39,6 +40,16 @@ final appRouter = GoRouter(
             ),
           ],
         ),
+
+        // Downloads Branch
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/downloads',
+              builder: (context, state) => DownloadsScreen(),
+            ),
+          ],
+        ),
       ],
     ),
 
@@ -47,7 +58,6 @@ final appRouter = GoRouter(
       path: '/movie/:id',
       builder: (context, state) {
         final movieId = int.parse(state.pathParameters['id']!);
-
         return MovieDetailsScreen(movieId: movieId);
       },
     ),
