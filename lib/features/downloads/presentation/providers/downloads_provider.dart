@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:netflix_clone/features/home/domain/entities/movie.dart';
 import 'package:netflix_clone/features/downloads/data/repositories/downloads_repository_impl.dart';
 import 'package:netflix_clone/features/downloads/domain/repositories/downloads_repository.dart';
