@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:netflix_clone/features/home/presentation/screens/home_screen.dart';
 import 'package:netflix_clone/features/movie_details/presentation/screens/movie_details_screen.dart';
+import 'package:netflix_clone/features/search/presentation/screens/search_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -21,5 +22,7 @@ final appRouter = GoRouter(
         return MovieDetailsScreen(movieId: movieId);
       },
     ),
+
+    GoRoute(path: '/search', builder: (context, state) => SearchScreen()),
   ],
 );
