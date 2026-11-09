@@ -1,9 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netflix_clone/features/search/presentation/providers/search_provider.dart';
 import 'package:go_router/go_router.dart';
-
-import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -111,10 +112,32 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                             },
 
                             leading: movie.posterPath != null
-                                ? Image.network(
-                                    'https://image.tmdb.org/t/p/w200${movie.posterPath}',
+                                ? CachedNetworkImage(
+                                    imageUrl:
+                                        'https://image.tmdb.org/t/p/w200${movie.posterPath}',
                                     width: 60,
+                                    height: 90,
                                     fit: BoxFit.cover,
+                                    placeholder: (context, url) => Container(
+                                      width: 60,
+                                      height: 90,
+                                      color: Colors.grey.shade900,
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        ),
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Container(
+                                          width: 60,
+                                          height: 90,
+                                          color: Colors.grey.shade900,
+                                          child: Icon(
+                                            Icons.movie,
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                   )
                                 : SizedBox(
                                     width: 60,
