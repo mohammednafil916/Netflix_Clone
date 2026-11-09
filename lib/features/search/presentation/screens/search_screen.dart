@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netflix_clone/features/search/presentation/providers/search_provider.dart';
+import 'package:go_router/go_router.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -96,23 +97,29 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           final movie = movies[index];
 
                           return ListTile(
+                            onTap: () {
+                              context.push('/movie/${movie.id}');
+                            },
+
                             leading: movie.posterPath != null
                                 ? Image.network(
-                                    "https://image.tmdb.org/t/p/w200${movie.posterPath}",
+                                    'https://image.tmdb.org/t/p/w200${movie.posterPath}',
                                     width: 60,
                                     fit: BoxFit.cover,
                                   )
-                                : SizedBox(
+                                : const SizedBox(
                                     width: 60,
                                     child: Icon(
                                       Icons.movie,
                                       color: Colors.grey,
                                     ),
                                   ),
+
                             title: Text(
                               movie.title,
                               style: TextStyle(color: Colors.white),
                             ),
+
                             subtitle: Text(
                               movie.releaseDate,
                               style: TextStyle(color: Colors.grey),
