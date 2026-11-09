@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
-
 import 'package:netflix_clone/core/widgets/bottom_nav_bar.dart';
 import 'package:netflix_clone/features/home/presentation/screens/home_screen.dart';
 import 'package:netflix_clone/features/movie_details/presentation/screens/movie_details_screen.dart';
@@ -27,7 +26,7 @@ final appRouter = GoRouter(
         // Home Branch
         StatefulShellBranch(
           routes: [
-            GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
+            GoRoute(path: '/', builder: (context, state) => HomeScreen()),
           ],
         ),
 
@@ -36,7 +35,7 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/search',
-              builder: (context, state) => const SearchScreen(),
+              builder: (context, state) => SearchScreen(),
             ),
           ],
         ),
