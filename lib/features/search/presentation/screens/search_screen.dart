@@ -63,7 +63,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             child: searchState == null
                 ? Center(
                     child: Text(
-                      'Search for your favourite movies',
+                      "Search for your favourite movies",
                       style: TextStyle(color: Colors.grey),
                     ),
                   )
@@ -85,7 +85,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       if (movies.isEmpty) {
                         return Center(
                           child: Text(
-                            'No movies found',
+                            "No movies found",
                             style: TextStyle(color: Colors.grey),
                           ),
                         );
@@ -107,7 +107,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                     width: 60,
                                     fit: BoxFit.cover,
                                   )
-                                : const SizedBox(
+                                : SizedBox(
                                     width: 60,
                                     child: Icon(
                                       Icons.movie,
