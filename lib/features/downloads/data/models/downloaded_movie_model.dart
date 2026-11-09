@@ -1,20 +1,14 @@
-class DownloadedMovieModel {
-  final int id;
-  final String title;
-  final String overview;
-  final String? posterPath;
-  final String? backdropPath;
-  final double rating;
-  final String releaseDate;
+import 'package:netflix_clone/features/home/domain/entities/movie.dart';
 
+class DownloadedMovieModel extends Movie {
   DownloadedMovieModel({
-    required this.id,
-    required this.title,
-    required this.overview,
-    this.posterPath,
-    this.backdropPath,
-    required this.rating,
-    required this.releaseDate,
+    required super.id,
+    required super.title,
+    required super.overview,
+    super.posterPath,
+    super.backdropPath,
+    required super.rating,
+    required super.releaseDate,
   });
 
   Map<String, dynamic> toJson() {
