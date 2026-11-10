@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netflix_clone/features/home/presentation/providers/home_provider.dart';
 import 'package:netflix_clone/features/home/presentation/widgets/movie_card.dart';
 import 'package:netflix_clone/features/home/presentation/widgets/featured_movie_banner.dart';
+import 'package:netflix_clone/core/widgets/movie_shimmer.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -23,7 +24,7 @@ class HomeScreen extends ConsumerWidget {
 
       body: movies.when(
         loading: () {
-          return Center(child: CircularProgressIndicator());
+          return const MovieShimmer();
         },
 
         error: (error, stackTrace) {
@@ -60,7 +61,7 @@ class HomeScreen extends ConsumerWidget {
                   height: 230,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                     itemCount: movieList.length,
                     separatorBuilder: (context, index) {
                       return SizedBox(width: 12);
@@ -86,12 +87,12 @@ class HomeScreen extends ConsumerWidget {
 
                 trendingMovies.when(
                   loading: () {
-                    return Center(child: CircularProgressIndicator());
+                    return const MovieShimmer();
                   },
 
                   error: (error, stackTrace) {
                     return Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.all(16),
                       child: Text("Failed to load trending movies: $error"),
                     );
                   },
@@ -127,7 +128,7 @@ class HomeScreen extends ConsumerWidget {
 
                 nowPlayingMovies.when(
                   loading: () {
-                    return Center(child: CircularProgressIndicator());
+                    return const MovieShimmer();
                   },
 
                   error: (error, stackTrace) {
@@ -142,7 +143,7 @@ class HomeScreen extends ConsumerWidget {
                       height: 230,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: EdgeInsets.symmetric(horizontal: 16),
                         itemCount: nowPlayingList.length,
                         separatorBuilder: (context, index) =>
                             SizedBox(width: 12),
