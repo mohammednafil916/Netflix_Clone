@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:netflix_clone/features/downloads/presentation/providers/downloads_provider.dart';
+import 'package:go_router/go_router.dart';
 
 class DownloadsScreen extends ConsumerWidget {
   const DownloadsScreen({super.key});
@@ -68,68 +69,76 @@ class DownloadsScreen extends ConsumerWidget {
 
               return Padding(
                 padding: EdgeInsets.only(bottom: 16),
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: movie.posterPath != null
-                          ? CachedNetworkImage(
-                              imageUrl:
-                                  'https://image.tmdb.org/t/p/w200${movie.posterPath}',
-                              width: 90,
-                              height: 125,
-                              fit: BoxFit.cover,
-                            )
-                          : Container(
-                              width: 90,
-                              height: 125,
-                              color: Colors.grey.shade900,
-                              child: Icon(Icons.movie, color: Colors.white),
-                            ),
-                    ),
-
-                    SizedBox(width: 14),
-
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            movie.title,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 6),
-                          Text(
-                            movie.releaseDate.isEmpty
-                                ? "Release date unavailable"
-                                : movie.releaseDate,
-                            style: TextStyle(color: Colors.grey, fontSize: 13),
-                          ),
-                          SizedBox(height: 6),
-                          Text(
-                            '⭐ ${movie.rating.toStringAsFixed(1)}',
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 13,
-                            ),
-                          ),
-                        ],
+                child: InkWell(
+                  onTap: () {
+                    context.push('/movie/${movie.id}');
+                  },
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: movie.posterPath != null
+                            ? CachedNetworkImage(
+                                imageUrl:
+                                    'https://image.tmdb.org/t/p/w200${movie.posterPath}',
+                                width: 90,
+                                height: 125,
+                                fit: BoxFit.cover,
+                              )
+                            : Container(
+                                width: 90,
+                                height: 125,
+                                color: Colors.grey.shade900,
+                                child: Icon(Icons.movie, color: Colors.white),
+                              ),
                       ),
-                    ),
 
-                    IconButton(
-                      onPressed: () {
-                        ref
-                            .read(downloadsProvider.notifier)
-                            .removeMovie(movie.id);
-                      },
-                      icon: Icon(Icons.delete_outline, color: Colors.red),
-                    ),
-                  ],
+                      SizedBox(width: 14),
+
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              movie.title,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 6),
+                            Text(
+                              movie.releaseDate.isEmpty
+                                  ? "Release date unavailable"
+                                  : movie.releaseDate,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 13,
+                              ),
+                            ),
+                            SizedBox(height: 6),
+                            Text(
+                              '⭐ ${movie.rating.toStringAsFixed(1)}',
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      IconButton(
+                        onPressed: () {
+                          ref
+                              .read(downloadsProvider.notifier)
+                              .removeMovie(movie.id);
+                        },
+                        icon: Icon(Icons.delete_outline, color: Colors.red),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
