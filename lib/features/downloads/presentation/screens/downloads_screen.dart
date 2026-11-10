@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:go_router/go_router.dart';
 import 'package:netflix_clone/features/downloads/presentation/providers/downloads_provider.dart';
 
 class DownloadsScreen extends ConsumerWidget {
@@ -128,7 +127,7 @@ class DownloadsScreen extends ConsumerWidget {
                             .read(downloadsProvider.notifier)
                             .removeMovie(movie.id);
                       },
-                      icon: Icon(Icons.delete_outline, color: Colors.grey),
+                      icon: Icon(Icons.delete_outline, color: Colors.red),
                     ),
                   ],
                 ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:netflix_clone/features/movie_details/presentation/providers/movie_details_provider.dart';
+import 'package:netflix_clone/features/home/domain/entities/movie.dart';
+import 'package:netflix_clone/features/downloads/presentation/providers/downloads_provider.dart';
 
 class MovieDetailsScreen extends ConsumerWidget {
   final int movieId;
@@ -123,6 +125,60 @@ class MovieDetailsScreen extends ConsumerWidget {
                           label: Text("Play"),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                            padding: EdgeInsets.all(14),
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: 12),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: () async {
+                            final notifier = ref.read(
+                              downloadsProvider.notifier,
+                            );
+
+                            final alreadySaved = await notifier
+                                .isMovieDownloaded(movie.id);
+
+                            if (alreadySaved) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Movie already exists in Downloads",
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+
+                            final downloadedMovie = Movie(
+                              id: movie.id,
+                              title: movie.title,
+                              overview: movie.overview,
+                              posterPath: movie.posterPath,
+                              backdropPath: movie.backdropPath,
+                              rating: movie.rating,
+                              releaseDate: movie.releaseDate,
+                            );
+
+                            await notifier.saveMovie(downloadedMovie);
+
+                            if (!context.mounted) return;
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Movie added to Downloads!"),
+                              ),
+                            );
+                          },
+                          icon: Icon(Icons.download),
+                          label: Text("Save to Downloads"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey.shade800,
                             foregroundColor: Colors.white,
                             padding: EdgeInsets.all(14),
                           ),
