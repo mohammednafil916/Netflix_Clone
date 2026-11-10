@@ -5,11 +5,16 @@ import 'package:netflix_clone/features/home/presentation/screens/home_screen.dar
 import 'package:netflix_clone/features/movie_details/presentation/screens/movie_details_screen.dart';
 import 'package:netflix_clone/features/search/presentation/screens/search_screen.dart';
 import 'package:netflix_clone/features/downloads/presentation/screens/downloads_screen.dart';
+import 'package:netflix_clone/features/splash/presentation/screens/splash_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
 
   routes: [
+    // Splash Screen
+    GoRoute(path: '/', builder: (context, state) => SplashScreen()),
+
+    // Main Application with Bottom Navigation
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return Scaffold(
@@ -22,12 +27,11 @@ final appRouter = GoRouter(
           ),
         );
       },
-
       branches: [
         // Home Branch
         StatefulShellBranch(
           routes: [
-            GoRoute(path: '/', builder: (context, state) => HomeScreen()),
+            GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
           ],
         ),
 
