@@ -4,6 +4,7 @@ import 'package:netflix_clone/features/home/presentation/providers/home_provider
 import 'package:netflix_clone/features/home/presentation/widgets/movie_card.dart';
 import 'package:netflix_clone/features/home/presentation/widgets/featured_movie_banner.dart';
 import 'package:netflix_clone/core/widgets/movie_shimmer.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -16,9 +17,15 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black,
+        centerTitle: true,
         title: Text(
           "NETFLIX",
-          style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+          style: GoogleFonts.bebasNeue(
+            color: Colors.red,
+            fontSize: 32,
+            letterSpacing: 2.5,
+          ),
         ),
       ),
 
@@ -41,7 +48,7 @@ class HomeScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Featured Movie Banner
-                FeaturedMovieBanner(movie: movieList.first),
+                FeaturedMovieBanner(movies: movieList.take(5).toList()),
 
                 SizedBox(height: 20),
 
