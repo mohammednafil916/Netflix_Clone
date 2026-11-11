@@ -17,7 +17,7 @@ class FeaturedMovieBanner extends StatelessWidget {
         final movie = movies[index];
 
         return Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 8),
+          padding: EdgeInsets.symmetric(horizontal: 8),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(18),
             child: Stack(
